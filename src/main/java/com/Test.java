@@ -8,7 +8,7 @@ import com.service.MailAddressService;
 import com.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.jws.soap.SOAPBinding;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Test {
@@ -25,12 +25,13 @@ public class Test {
 
         MailAddressService mailAddressService = context.getBean(MailAddressService.class);
 
-        Address address = Address.builder()
-                .city("Priluki")
-                .building("123/a")
-                .region("Chernigiv")
-                .street("Ptuskin")
-                .build();
+        {
+            Address address = Address.builder()
+                    .city("Priluki")
+                    .building("123/a")
+                    .region("Chernigiv")
+                    .street("Ptuskin")
+                    .build();
 
         Email email = Email.builder()
                 .mailAddress("fg@gmail.com")
@@ -52,13 +53,38 @@ public class Test {
                 .registration(LocalDate.now())
                 .build();
 
-        userService.save(user);
+//        userService.save(user);
 
-        System.out.println("IN PROGRAM : " + user.getId());
+    }
 
-        user.setFirstName("changed");
+        Category foods = Category.builder()
+                .name("foods")
+                .build();
 
-        userService.update(user);
+        Category guns = Category.builder()
+                .name("guns")
+                .build();
+
+//        categoryService.save(guns);
+//        categoryService.save(foods);
+
+//        System.out.println(categoryService.countAll());
+//
+//        categoryService.selectAllSortedByName().forEach(System.out::println);
+//        categoryService.selectSortedByName(0,1);
+//        categoryService.deleteById(53);
+//        System.out.println(categoryService.findById(54));
+
+        Advertisement ads = Advertisement.builder()
+                .category(categoryService.findById(54))
+                .description("brazilian 1-st quality")
+                .header("banana")
+                .price(BigDecimal.valueOf(24.50))
+                .publicationDate(LocalDate.now())
+                .user(userService.findById(49))
+                .build();
+
+        advertisementService.save(ads);
 
     }
 }

@@ -2,4 +2,5 @@
 # should I ignore .idea?? I tried but then I can't commit
 
 target
-SpringMVC.iml
+*.iml
+.idea

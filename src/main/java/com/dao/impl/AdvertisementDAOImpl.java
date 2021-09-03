@@ -41,9 +41,9 @@ public class AdvertisementDAOImpl implements AdvertisementDAO {
     @Override
     public void update(Advertisement advertisement) {
 
-        manager.merge(advertisement);
+        Advertisement merged = manager.merge(advertisement);
 
-        manager.persist(advertisement);
+        manager.persist(merged);
 
     }
 
@@ -63,17 +63,16 @@ public class AdvertisementDAOImpl implements AdvertisementDAO {
 
         CriteriaQuery<Long> cq = criteriaBuilder.createQuery(Long.class);
 
-        cq.select(criteriaBuilder.count(cq.from(Advertisement.class)));
-
-        cq.where(/*your stuff*/);
+        cq.select(criteriaBuilder.count(cq.from(Category.class)));
 
         return Math.toIntExact(manager.createQuery(cq).getSingleResult());
+
     }
 
     @Override
     public List<Advertisement> selectAll() {
 
-        Query query = manager.createQuery("FROM Advertisement c", Advertisement.class);
+        Query query = manager.createQuery("FROM Advertisement a ORDER BY a.publicationDate", Advertisement.class);
 
         List<Advertisement> resultList = query.getResultList();
 

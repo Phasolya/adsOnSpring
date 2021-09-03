@@ -39,9 +39,9 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public void update(Category category) {
 
-        manager.merge(category);
+        Category merged = manager.merge(category);
 
-        manager.persist(category);
+        manager.persist(merged);
 
     }
 

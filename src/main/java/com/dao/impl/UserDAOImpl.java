@@ -23,11 +23,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void save(User user) {
 
-        System.out.println("BEFORE=================: " + user.getId());
-
         manager.persist(user);
-
-        System.out.println("AFTER===================: " + user.getId());
 
     }
 
@@ -41,9 +37,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void update(User user) {
 
-        manager.merge(user);
+        User merged = manager.merge(user);
 
-        manager.persist(user);
+        manager.persist(merged);
 
     }
 
@@ -59,13 +55,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public int countAll() {
 
-        int result;
-
         Query query = manager.createQuery("SELECT COUNT(u.id) FROM User u ", Long.class);
 
-        result = (int) query.getSingleResult();
+        return ((Long) query.getSingleResult()).intValue();
 
-        return result;
     }
 
     @Override
