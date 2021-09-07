@@ -2,37 +2,35 @@ package com.dao;
 
 import com.entity.Advertisement;
 import com.entity.Category;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface AdvertisementDAO extends CrudDAO<Advertisement> {
+public interface AdvertisementDAO extends JpaRepository<Advertisement, Integer> {
 
-    int countAll();
+    int countByCategory(Category category);
 
-    List<Advertisement> selectAll();
+    List<Advertisement> getByCategoryOrderByPrice(Category category, Pageable pageable);
 
-    // ===============================================================================================================
-
-    int countBy(Category category );
-
-    List<Advertisement> selectByPriceUp(Category category, int startRow, int amount);
-
-    List<Advertisement> selectByPriceDown(Category category, int startRow, int amount);
+    List<Advertisement> getByCategoryOrderByPriceDesc(Category category, Pageable pageable);
 
     // ===============================================================================================================
 
-    int countBy(Category category, String title );
+    int countByCategoryAndHeader(Category category, String title);
 
-    List<Advertisement> selectByPriceUp(Category category, String title, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderOrderByPrice(Category category, String title, Pageable pageable);
 
-    List<Advertisement> selectByPriceDown(Category category, String title, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderOrderByPriceDesc(Category category, String title, Pageable pageable);
 
     // ===============================================================================================================
 
-    int countBy(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo);
+    int countByCategoryAndHeaderAndPriceBetween(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo);
 
-    List<Advertisement> selectByPriceUp(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderAndPriceBetweenOrderByPrice(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, Pageable pageable);
 
-    List<Advertisement> selectByPriceDown(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderAndPriceBetweenOrderByPriceDesc(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, Pageable pageable);
 }

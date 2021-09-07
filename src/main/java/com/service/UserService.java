@@ -16,6 +16,6 @@ public interface UserService {
 
     int countAll();
 
-    List<User> selectAll();
+    List<User> findAllOrderByRegistration(int startRow, int amount);
 
 }

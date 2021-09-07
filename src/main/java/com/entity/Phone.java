@@ -8,7 +8,7 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@Getter @Setter @Builder @ToString
+@Getter @Setter @ToString @Builder
 
 @Entity
 @Table(name = "phones")

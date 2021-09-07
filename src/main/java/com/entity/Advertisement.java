@@ -41,7 +41,4 @@ public class Advertisement {
 
     BigDecimal price;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "advertisement")
-    List<Photo> photos;
-
 }

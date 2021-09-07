@@ -4,22 +4,21 @@ import com.dao.CategoryDAO;
 import com.entity.Category;
 import com.service.CategoryService;
 import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     final CategoryDAO CATEGORY_DAO;
-
-    public CategoryServiceImpl(@Autowired CategoryDAO category_dao) {
-        CATEGORY_DAO = category_dao;
-    }
 
     @Override
     public void save(Category category) {
@@ -28,12 +27,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(int id) {
-        return CATEGORY_DAO.findById(id);
+        return CATEGORY_DAO.findById(id).get();
     }
 
     @Override
     public void update(Category category) {
-        CATEGORY_DAO.update(category);
+        CATEGORY_DAO.save(category);
     }
 
     @Override
@@ -43,17 +42,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int countAll() {
-        return CATEGORY_DAO.countAll();
+        return Math.toIntExact(CATEGORY_DAO.count());
     }
 
-    @Override
-    public List<Category> selectAllSortedByName() {
-        return CATEGORY_DAO.selectAllSortedByName();
-    }
 
     @Override
-    public List<Category> selectSortedByName(int startRow, int amount) {
-        return CATEGORY_DAO.selectSortedByName(startRow, amount);
+    public List<Category> getSortedByName(int startRow, int amount) {
+
+        PageRequest pr = PageRequest.of(startRow, amount, Sort.by("name"));
+
+        return CATEGORY_DAO.findAll(pr).toList();
     }
 
 }

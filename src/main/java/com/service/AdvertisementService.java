@@ -2,46 +2,51 @@ package com.service;
 
 import com.entity.Advertisement;
 import com.entity.Category;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface AdvertisementService {
 
-    void save(Advertisement advertisement);
+    void saveAndSentNotifications(Advertisement advertisement);
 
     Advertisement findById(int id);
 
-    void update(Advertisement advertisement);
+    void updateAndSentNotifications(Advertisement advertisement);
 
     void deleteById(int id);
 
     int countAll();
 
-    List<Advertisement> selectAll();
+    // ===============================================================================================================
+
+    int countByCategory(Category category);
+
+    List<Advertisement> getByCategoryOrderByPrice(Category category, int startRow, int amount);
+
+    List<Advertisement> getByCategoryOrderByPriceDesc(Category category, int startRow, int amount);
 
     // ===============================================================================================================
 
-    int countBy(Category category );
+    int countByCategoryAndHeader(Category category, String title);
 
-    List<Advertisement> selectByPriceUp(Category category, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderOrderByPrice(Category category, String title, int startRow, int amount);
 
-    List<Advertisement> selectByPriceDown(Category category, int startRow, int amount);
-
-    // ===============================================================================================================
-
-    int countBy(Category category, String title );
-
-    List<Advertisement> selectByPriceUp(Category category, String title, int startRow, int amount);
-
-    List<Advertisement> selectByPriceDown(Category category, String title, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderOrderByPriceDesc(Category category, String title,
+                                                               int startRow, int amount);
 
     // ===============================================================================================================
 
-    int countBy(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo);
+    int countByCategoryAndHeaderAndPriceBetween(Category category, String title,
+                                                BigDecimal priceFrom, BigDecimal priceTo);
 
-    List<Advertisement> selectByPriceUp(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderAndPriceBetweenOrderByPrice(Category category, String title,
+                                                                          BigDecimal priceFrom, BigDecimal priceTo,
+                                                                          int startRow, int amount);
 
-    List<Advertisement> selectByPriceDown(Category category, String title, BigDecimal priceFrom, BigDecimal priceTo, int startRow, int amount);
+    List<Advertisement> getByCategoryAndHeaderAndPriceBetweenOrderByPriceDesc(Category category, String title,
+                                                                              BigDecimal priceFrom, BigDecimal priceTo,
+                                                                              int startRow, int amount);
 
 }

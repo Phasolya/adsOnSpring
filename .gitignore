@@ -1,5 +1,3 @@
-# WHAT PUT IN MY GIT_IGNORE FILE?????
-# should I ignore .idea?? I tried but then I can't commit
 
 target
 *.iml

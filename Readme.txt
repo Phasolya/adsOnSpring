@@ -32,3 +32,11 @@ User
 - готовое приложение должно быть доступно на bitbucket репозитории.
 - все ключевые моменты логики приложения должны содержать поясняющие JavaDocs.
 - обязательно должна присутствовать валидация данных.
+
+
+
+MailAddressDAO.class ==> WHY I CANT USE STRING IN INTERFACE IMPLEMENTATION ?????????????????
+Advertisement.class ==>  I cant save without list of photos, because when i want update its ERROR!
+MailAddressDAO.class ==> concat dont work correctly
+*Service.class ==> давай уберем все апдейт методы, они бесполезны
+MatchingAdController.class ==> в методе getByUserOrderById() мы 2 раза лезем в базу, есть ли смысл?

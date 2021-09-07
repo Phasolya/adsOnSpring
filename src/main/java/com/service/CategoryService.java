@@ -15,9 +15,7 @@ public interface CategoryService {
 
     int countAll();
 
-    List<Category> selectAllSortedByName();
-
-    List<Category> selectSortedByName(int startRow, int amount);
+    List<Category> getSortedByName(int startRow, int amount);
 
 }
 
