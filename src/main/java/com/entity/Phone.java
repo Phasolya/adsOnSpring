@@ -1,5 +1,7 @@
 package com.entity;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,6 +21,7 @@ public class Phone {
     @Column(name = "phone_id")
     int id;
 
+    @Pattern(regexp = "+[0-9]{12}")
     @Column(name = "phone_number")
     String phoneNumber;
 

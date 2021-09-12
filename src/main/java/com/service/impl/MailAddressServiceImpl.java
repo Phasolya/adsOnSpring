@@ -1,6 +1,6 @@
 package com.service.impl;
 
-import com.dao.MailAddressDAO;
+import com.dao.MailAddressDao;
 import com.entity.Advertisement;
 import com.service.MailAddressService;
 import lombok.AccessLevel;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class MailAddressServiceImpl implements MailAddressService {
 
-    final MailAddressDAO MAIL_ADDRESS_DAO;
+    final MailAddressDao MAIL_ADDRESS_DAO;
 
     @Override
     public void sendEmails(Advertisement advertisement) {
@@ -27,9 +27,7 @@ public class MailAddressServiceImpl implements MailAddressService {
         String title = advertisement.getHeader();
 
         List<String> emails = MAIL_ADDRESS_DAO.findAllSuitableEmails(categoryId, adsPrice, title);
-        System.out.println(emails.size());
-        emails.forEach(System.out::println);
-        //sending
+
         System.out.println("here we will sent mails to our costumers");
     }
 }

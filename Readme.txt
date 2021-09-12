@@ -40,3 +40,6 @@ Advertisement.class ==>  I cant save without list of photos, because when i want
 MailAddressDAO.class ==> concat dont work correctly
 *Service.class ==> давай уберем все апдейт методы, они бесполезны
 MatchingAdController.class ==> в методе getByUserOrderById() мы 2 раза лезем в базу, есть ли смысл?
+
+TODO:
+1) @Version

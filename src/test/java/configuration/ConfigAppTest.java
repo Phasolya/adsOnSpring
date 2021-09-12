@@ -1,4 +1,4 @@
-package com.config;
+package configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,8 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
@@ -23,11 +21,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = {"com.controller", "com.service", "com.dao.impl"})
-//@EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.repository")
-@EnableScheduling
-public class ConfigApp /*implements WebMvcConfigurer*/ {
+public class ConfigAppTest {
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
@@ -51,7 +47,7 @@ public class ConfigApp /*implements WebMvcConfigurer*/ {
     public DataSource dataSource() {
         DriverManagerDataSource source = new DriverManagerDataSource();
         source.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        source.setUrl("jdbc:mysql://localhost:3306/advertising?serverTimezone=Europe/Kiev");
+        source.setUrl("jdbc:mysql://localhost:3306/advertising_test?serverTimezone=Europe/Kiev");
         source.setUsername("root");
         source.setPassword("root");
 

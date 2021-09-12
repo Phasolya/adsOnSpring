@@ -1,11 +1,11 @@
-package com.service;
+package com.dao;
 
 import com.entity.MatchingAd;
 import com.entity.User;
 
 import java.util.List;
 
-public interface MatchingAdService {
+public interface MatchingAdDao {
 
     void save(MatchingAd matchingAd);
 
@@ -15,6 +15,9 @@ public interface MatchingAdService {
 
     void deleteById(int id);
 
-    List<MatchingAd> getByUserOrderById(int userId);
+    /**
+     * Method return MatchingAd ordered by MatchingAd.id
+     * */
+    List<MatchingAd> getByUser(int userId);
 
 }

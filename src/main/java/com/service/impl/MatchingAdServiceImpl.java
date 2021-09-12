@@ -1,6 +1,6 @@
 package com.service.impl;
 
-import com.dao.MatchingAdDAO;
+import com.dao.MatchingAdDao;
 import com.entity.MatchingAd;
 import com.entity.User;
 import com.service.MatchingAdService;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class MatchingAdServiceImpl implements MatchingAdService {
 
-    final MatchingAdDAO MATCHING_AD_DAO;
+    final MatchingAdDao MATCHING_AD_DAO;
 
     @Override
     public void save(MatchingAd matchingAd) {
@@ -26,21 +26,19 @@ public class MatchingAdServiceImpl implements MatchingAdService {
 
     @Override
     public MatchingAd findById(int id) {
-        return MATCHING_AD_DAO.findById(id).get();
+        return MATCHING_AD_DAO.findById(id);
     }
 
     @Override
     public void update(MatchingAd matchingAd) {
-        MATCHING_AD_DAO.save(matchingAd);
+        MATCHING_AD_DAO.update(matchingAd);
     }
 
     @Override
-    public void deleteById(int id) {
-        MATCHING_AD_DAO.deleteById(id);
-    }
+    public void deleteById(int id) { MATCHING_AD_DAO.deleteById(id); }
 
     @Override
-    public List<MatchingAd> getByUserOrderById(User user) {
-        return MATCHING_AD_DAO.getByUserOrderById(user);
+    public List<MatchingAd> getByUserOrderById(int userId) {
+        return MATCHING_AD_DAO.getByUser(userId);
     }
 }

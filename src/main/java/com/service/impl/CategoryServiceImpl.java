@@ -1,24 +1,21 @@
 package com.service.impl;
 
-import com.dao.CategoryDAO;
+import com.dao.CategoryDao;
 import com.entity.Category;
 import com.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    final CategoryDAO CATEGORY_DAO;
+    final CategoryDao CATEGORY_DAO;
 
     @Override
     public void save(Category category) {
@@ -27,12 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(int id) {
-        return CATEGORY_DAO.findById(id).get();
+        return CATEGORY_DAO.findById(id);
     }
 
     @Override
     public void update(Category category) {
-        CATEGORY_DAO.save(category);
+        CATEGORY_DAO.update(category);
     }
 
     @Override
@@ -42,16 +39,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public int countAll() {
-        return Math.toIntExact(CATEGORY_DAO.count());
+        return Math.toIntExact(CATEGORY_DAO.countAll());
     }
 
 
     @Override
     public List<Category> getSortedByName(int startRow, int amount) {
 
-        PageRequest pr = PageRequest.of(startRow, amount, Sort.by("name"));
-
-        return CATEGORY_DAO.findAll(pr).toList();
+        return CATEGORY_DAO.getSortedByName(startRow, amount);
     }
 
 }

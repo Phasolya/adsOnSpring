@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -19,15 +21,19 @@ public class Address {
     @Column(name = "address_id")
     int id;
 
+    @Pattern(regexp = "[A-Z]{2,15}", flags = Pattern.Flag.CASE_INSENSITIVE)
     @Column(length = 15)
     String region;
 
+    @Pattern(regexp = "[A-Z]{2,15}", flags = Pattern.Flag.CASE_INSENSITIVE)
     @Column(length = 15)
     String city;
 
+    @Pattern(regexp = "[A-Z0-9\\.]{2,15}", flags = Pattern.Flag.CASE_INSENSITIVE)
     @Column(length = 15)
     String street;
 
+    @Pattern(regexp = "[A-Z0-9\\.]{2,15}", flags = Pattern.Flag.CASE_INSENSITIVE)
     @Column(length = 15)
     String building;
 

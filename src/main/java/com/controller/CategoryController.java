@@ -5,21 +5,26 @@ import com.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 
+@Validated
 @RestController
 @RequestMapping("categories/")
 public class CategoryController {
+
     final CategoryService CATEGORY_SERVICE;
 
     @PostMapping("category")
-    public void save(@RequestBody Category category) {
+    public void save(@Valid @RequestBody Category category) {
         CATEGORY_SERVICE.save(category);
     }
 
@@ -29,7 +34,7 @@ public class CategoryController {
     }
 
     @PutMapping("category")
-    public void update(@RequestBody Category category) {
+    public void update(@Valid @RequestBody Category category) {
         CATEGORY_SERVICE.update(category);
     }
 
@@ -42,7 +47,8 @@ public class CategoryController {
     public int countAll() { return CATEGORY_SERVICE.countAll(); }
 
     @GetMapping("all/from{startRow}amount{amount}")
-    public List<Category> getSortedByName(@PathVariable("startRow") int startRow, @PathVariable("amount") int amount) {
+    public List<Category> getSortedByName(@Min(0) @PathVariable("startRow") int startRow,
+                                          @Max(20) @PathVariable("amount") int amount) {
 
         return CATEGORY_SERVICE.getSortedByName(startRow, amount);
 
