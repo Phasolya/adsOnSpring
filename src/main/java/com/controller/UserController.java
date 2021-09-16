@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.IOException;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("user/{id}")
-    public User findById( @PathVariable("id") int id) {
+    public User findById(@PathVariable("id") int id) {
         return USER_SERVICE.findById(id);
     }
 
@@ -54,6 +55,11 @@ public class UserController {
 
         return USER_SERVICE.findAllOrderByRegistration(startRow, amount);
 
+    }
+
+    @GetMapping("throw")
+    public void throwException() throws IOException {
+        throw new IOException("I'm IO");
     }
 
 }

@@ -49,18 +49,18 @@ public class AdvertisementController {
         return ADS_SERVICE.countAll();
     }
 
-    @PostMapping("ad-page")
-    public Page<Advertisement> countByCategoryDto(@Valid @RequestBody CategoryDto categoryDto) {
+    @PostMapping("ad-page-c")
+    public Page<Advertisement> getPageAdsByCategoryDto(@Valid @RequestBody CategoryDto categoryDto) {
         return ADS_SERVICE.getByCategoryDto(categoryDto);
     }
 
-    @PostMapping("ad-page")
-    public Page<Advertisement> countByCategoryAndHeaderDto(@Valid @RequestBody CategoryHeaderDto categoryHeaderDto) {
+    @PostMapping("ad-page-ch")
+    public Page<Advertisement> getPageAdsByCategoryAndHeaderDto(@Valid @RequestBody CategoryHeaderDto categoryHeaderDto) {
         return ADS_SERVICE.getByCategoryHeaderDto(categoryHeaderDto);
     }
 
-    @PostMapping("ad-page")
-    public Page<Advertisement> countByCategoryAndHeaderPriceDto(@Valid @RequestBody CategoryHeaderPriceDto chpDto) {
+    @PostMapping("ad-page-chp")
+    public Page<Advertisement> getPageAdsByCategoryAndHeaderPriceDto(@Valid @RequestBody CategoryHeaderPriceDto chpDto) {
         return ADS_SERVICE.getByCategoryHeaderPriceDto(chpDto);
     }
 }

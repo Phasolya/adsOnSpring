@@ -1,13 +1,16 @@
 package com.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
@@ -18,6 +21,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @ToString
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "users")
@@ -28,7 +32,7 @@ public class User {
     @Column(name = "user_id")
     int id;
 
-    @Pattern(regexp = "[A-Za-z0-9]{6,10}")
+    @Pattern(regexp = "\\w{6,10}")
     @Column(nullable = false, unique = true, length = 10)
     String login;
 
@@ -63,8 +67,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     Role role;
 
-    // TODO: 11.09.2021 validation for LocalDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @PastOrPresent
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     LocalDate registration;
+
+
 
 }
