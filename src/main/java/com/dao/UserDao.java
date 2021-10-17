@@ -1,21 +1,19 @@
 package com.dao;
 
-import com.entity.User;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.domain.User;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
-public interface UserDao {
+/**
+ * {@link UserDao} interface serves the data access process for {@link User}
+ * in database for crud operations and other operations.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface UserDao extends CrudDao<User> {
 
-    void save(User user);
-
-    User findById(int id);
-
-    void update(User user);
-
-    void deleteById(int id);
+    User findByLogin(String login);
 
     int countAll();
 

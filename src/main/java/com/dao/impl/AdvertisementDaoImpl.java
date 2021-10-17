@@ -1,11 +1,13 @@
 package com.dao.impl;
 
 import com.dao.AdvertisementDao;
+import com.domain.Advertisement;
+import com.domain.User;
 import com.dto.CategoryDto;
 import com.dto.CategoryHeaderDto;
 import com.dto.CategoryHeaderPriceDto;
-import com.entity.Advertisement;
 import com.repository.AdvertisementRepository;
+import com.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,11 +18,24 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 
+/**
+ * {@link AdvertisementDaoImpl} class serves for the data access process for
+ * {@link Advertisement} in database has extends CRUD methods,and other methods
+ * for getting need additional data from database.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+
 @Repository
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class AdvertisementDaoImpl implements AdvertisementDao {
 
+    /**
+     * This is object instance of {@link UserRepository}
+     * helps us persist data into data base with Spring Data Jpa.
+     */
     final AdvertisementRepository ADS_REPOSITORY;
 
     @Override
@@ -29,7 +44,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
     }
 
     @Override
-    public Advertisement findById(int id) {
+    public Advertisement find(int id) {
         return ADS_REPOSITORY.findById(id).get();
     }
 
@@ -39,7 +54,7 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void delete(int id) {
         ADS_REPOSITORY.deleteById(id);
     }
 
@@ -51,6 +66,11 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
     @Override
     public void deleteAllNotActive() {
         ADS_REPOSITORY.deleteAllByIsActiveFalse();
+    }
+
+    @Override
+    public void deleteAllByUser(User user) {
+        ADS_REPOSITORY.deleteAllByUser(user);
     }
 
     @Override

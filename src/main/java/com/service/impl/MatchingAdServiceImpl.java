@@ -1,19 +1,25 @@
 package com.service.impl;
 
 import com.dao.MatchingAdDao;
-import com.entity.MatchingAd;
-import com.entity.User;
+import com.domain.MatchingAd;
 import com.service.MatchingAdService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * {@link MatchingAdServiceImpl} class binds realization part with user
+ * and binds {@link MatchingAdDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @Service
 public class MatchingAdServiceImpl implements MatchingAdService {
 
@@ -25,8 +31,8 @@ public class MatchingAdServiceImpl implements MatchingAdService {
     }
 
     @Override
-    public MatchingAd findById(int id) {
-        return MATCHING_AD_DAO.findById(id);
+    public MatchingAd find(int id) {
+        return MATCHING_AD_DAO.find(id);
     }
 
     @Override
@@ -35,7 +41,7 @@ public class MatchingAdServiceImpl implements MatchingAdService {
     }
 
     @Override
-    public void deleteById(int id) { MATCHING_AD_DAO.deleteById(id); }
+    public void delete(int id) { MATCHING_AD_DAO.delete(id); }
 
     @Override
     public List<MatchingAd> getByUserOrderById(int userId) {

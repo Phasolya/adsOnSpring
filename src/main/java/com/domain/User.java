@@ -1,4 +1,4 @@
-package com.entity;
+package com.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -9,10 +9,19 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.Set;
+
+/**
+ * Class {@link User} with parameters id,login,password,firstName,lastName,registration
+ * {@link Email}, {@link Phone}, {@link Address}, {@link Set<Role>}.
+ * Implements pattern "builder", equals and hashCode methods.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -32,12 +41,11 @@ public class User {
     @Column(name = "user_id")
     int id;
 
-    @Pattern(regexp = "\\w{6,10}")
+    @Pattern(regexp = "[\\w\\d]{6,10}")
     @Column(nullable = false, unique = true, length = 10)
     String login;
 
-    @Pattern(regexp = ".{6,10}")
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false)
     String password;
 
     @Pattern(regexp = "[A-Z][a-z]{1,14}")
@@ -63,15 +71,14 @@ public class User {
     @JoinColumn(name = "FK_user_address")
     Address address;
 
-    @NotNull
-    @Enumerated(value = EnumType.STRING)
-    Role role;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    Set<Role> roles;
 
     @PastOrPresent
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     LocalDate registration;
-
-
 
 }

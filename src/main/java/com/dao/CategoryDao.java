@@ -1,18 +1,17 @@
 package com.dao;
 
-import com.entity.Category;
+import com.domain.Category;
 
 import java.util.List;
 
-public interface CategoryDao {
-
-    void save(Category category);
-
-    Category findById(int id);
-
-    void update(Category category);
-
-    void deleteById(int id);
+/**
+ * {@link CategoryDao} interface serves the data access process for {@link Category}
+ * in database for crud operations and other operations.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface CategoryDao extends CrudDao<Category>{
 
     int countAll();
 

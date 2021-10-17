@@ -1,17 +1,15 @@
 package com.controller;
 
-import com.entity.User;
+
+import com.domain.User;
 import com.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import java.io.IOException;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -19,8 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users/")
-
-@Validated
 public class UserController {
 
     final UserService USER_SERVICE;
@@ -30,36 +26,36 @@ public class UserController {
         USER_SERVICE.save(user);
     }
 
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("user/{id}")
     public User findById(@PathVariable("id") int id) {
-        return USER_SERVICE.findById(id);
+        return USER_SERVICE.find(id);
     }
 
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @PutMapping("user")
     public void update(@Valid @RequestBody User user) {
         USER_SERVICE.update(user);
     }
 
+    @Secured(value = {"ROLE_USER", "ROLE_ADMIN"})
     @DeleteMapping("user/{id}")
     public void deleteById(@PathVariable("id") int id) {
-        USER_SERVICE.deleteById(id);
+        USER_SERVICE.delete(id);
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @GetMapping("count")
     public int countAll() {
         return USER_SERVICE.countAll();
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @GetMapping("from{startRow}amount{amount}")
-    public List<User> selectAll(@Min(0) @PathVariable("startRow") int startRow, @Min(1) @Max(20) @PathVariable("amount") int amount) {
+    public List<User> selectAll(@PathVariable("startRow") int startRow,
+                                @PathVariable("amount") int amount) {
 
         return USER_SERVICE.findAllOrderByRegistration(startRow, amount);
 
     }
-
-    @GetMapping("throw")
-    public void throwException() throws IOException {
-        throw new IOException("I'm IO");
-    }
-
 }

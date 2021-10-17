@@ -1,7 +1,7 @@
 package com.service.impl;
 
 import com.dao.CategoryDao;
-import com.entity.Category;
+import com.domain.Category;
 import com.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * {@link CategoryServiceImpl} class binds realization part with user
+ * and binds {@link CategoryDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Service
@@ -23,8 +30,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findById(int id) {
-        return CATEGORY_DAO.findById(id);
+    public Category find(int id) {
+        return CATEGORY_DAO.find(id);
     }
 
     @Override
@@ -33,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(int id) {
-        CATEGORY_DAO.deleteById(id);
+    public void delete(int id) {
+        CATEGORY_DAO.delete(id);
     }
 
     @Override

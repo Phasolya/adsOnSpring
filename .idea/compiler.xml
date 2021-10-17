@@ -15,6 +15,7 @@
         <outputRelativeToContentRoot value="true" />
         <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
         <module name="advertisingSite2" />
+        <module name="adsOnSpring" />
       </profile>
     </annotationProcessing>
   </component>

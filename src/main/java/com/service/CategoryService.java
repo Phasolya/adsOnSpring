@@ -1,17 +1,17 @@
 package com.service;
 
-import com.entity.Category;
+import com.domain.Category;
+
 import java.util.List;
 
-public interface CategoryService {
-
-    void save(Category category);
-
-    Category findById(int id);
-
-    void update(Category category);
-
-    void deleteById(int id);
+/**
+ * {@link CategoryService} interface binds realization part
+ * with user and binds {@link com.dao.CategoryDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface CategoryService extends CrudService<Category> {
 
     int countAll();
 

@@ -1,19 +1,17 @@
 package com.dao;
 
-import com.entity.MatchingAd;
-import com.entity.User;
+import com.domain.MatchingAd;
 
 import java.util.List;
 
-public interface MatchingAdDao {
-
-    void save(MatchingAd matchingAd);
-
-    MatchingAd findById(int id);
-
-    void update(MatchingAd matchingAd);
-
-    void deleteById(int id);
+/**
+ * {@link MatchingAdDao} interface serves the data access process for {@link MatchingAd}
+ * in database for crud operations and other operations.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface MatchingAdDao extends CrudDao<MatchingAd>{
 
     /**
      * Method return MatchingAd ordered by MatchingAd.id

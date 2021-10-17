@@ -1,10 +1,9 @@
 package config;
 
-import com.config.ValidatorConfig;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import com.config.MailSenderConfig;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,17 +14,27 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.controller", "com.service", "com.dao.impl"})
+@EnableWebMvc
+@ComponentScan(basePackages = {"com.controller", "com.service", "com.dao.impl", "com.config"})
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.repository")
-@Import(ValidatorConfig.class)
-public class  ConfigAppTest {
+@Import(MailSenderConfig.class)
+@PropertySource("classpath:dbTest.properties")
+public class  ConfigAppTest implements EnvironmentAware {
+
+    private Environment env;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        env = environment;
+    }
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
@@ -41,17 +50,22 @@ public class  ConfigAppTest {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setDataSource(dataSource);
         lcemfb.setJpaVendorAdapter(adapter);
-        lcemfb.setPackagesToScan("com.entity");
+        lcemfb.setPackagesToScan("com.domain");
         return lcemfb;
     }
 
     @Bean
     public DataSource dataSource() {
+
+        String userName = env.getRequiredProperty("test_db_user_name");
+        String password = env.getRequiredProperty("test_db_password");
+        String dbUrl = env.getRequiredProperty("test_db_url");
+
         DriverManagerDataSource source = new DriverManagerDataSource();
         source.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        source.setUrl("jdbc:mysql://localhost:3306/advertising_test?serverTimezone=Europe/Kiev");
-        source.setUsername("root");
-        source.setPassword("root");
+        source.setUrl(dbUrl);
+        source.setUsername(userName);
+        source.setPassword(password);
 
         return source;
     }

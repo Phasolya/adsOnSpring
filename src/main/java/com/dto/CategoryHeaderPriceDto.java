@@ -1,5 +1,6 @@
 package com.dto;
 
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,14 @@ import lombok.experimental.FieldDefaults;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
+/**
+ * This is class {@link CategoryHeaderPriceDto} is used to convert to
+ * {@link com.domain.Category} object.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
@@ -17,7 +26,7 @@ public class CategoryHeaderPriceDto {
 
     int categoryId;
 
-    @Pattern(regexp = ".{2,30}")
+    @Pattern(regexp = "[\\w\\d\\s]{2,30}")
     String header;
 
     @Min(0)

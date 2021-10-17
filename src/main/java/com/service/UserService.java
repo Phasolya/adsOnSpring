@@ -1,18 +1,19 @@
 package com.service;
 
-import com.entity.User;
+import com.domain.User;
 
 import java.util.List;
 
-public interface UserService {
+/**
+ * {@link UserService} interface binds realization part
+ * with user and binds {@link com.dao.UserDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface UserService extends CrudService<User> {
 
-    void save(User user);
-
-    User findById(int id);
-
-    void update(User user);
-
-    void deleteById(int id);
+    User findByLogin(String login);
 
     int countAll();
 

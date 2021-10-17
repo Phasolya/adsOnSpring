@@ -5,11 +5,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
+
+/**
+ * This is class {@link CategoryDto} is used to convert to
+ * {@link com.domain.Category} object.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter

@@ -1,19 +1,17 @@
 package com.service;
 
-import com.entity.MatchingAd;
-import com.entity.User;
+import com.domain.MatchingAd;
 
 import java.util.List;
 
-public interface MatchingAdService {
-
-    void save(MatchingAd matchingAd);
-
-    MatchingAd findById(int id);
-
-    void update(MatchingAd matchingAd);
-
-    void deleteById(int id);
+/**
+ * {@link MatchingAdService} interface binds realization part
+ * with user and binds {@link com.dao.MatchingAdDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+public interface MatchingAdService extends CrudService<MatchingAd> {
 
     List<MatchingAd> getByUserOrderById(int userId);
 

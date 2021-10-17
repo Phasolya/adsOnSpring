@@ -1,5 +1,6 @@
 package com.dto;
 
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,14 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+/**
+ * This is class {@link CategoryHeaderDto} is used to convert to
+ * {@link com.domain.Category} object.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
@@ -17,7 +26,7 @@ import javax.validation.constraints.Pattern;
 public class CategoryHeaderDto {
     int categoryId;
 
-    @Pattern(regexp = ".{2,30}")
+    @Pattern(regexp = "[\\w\\d\\s]{2,30}")
     String header;
 
     @Min(0)

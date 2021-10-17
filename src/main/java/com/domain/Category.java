@@ -1,10 +1,18 @@
-package com.entity;
+package com.domain;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+
+/**
+ * Class {@link Category} with parameters id,name.
+ * Implements pattern "builder", equals and hashCode methods.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -13,6 +21,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @ToString
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "categories")
@@ -23,7 +32,7 @@ public class Category {
     @Column(name = "category_id")
     int id;
 
-    @Pattern(regexp = "[A-Z ]{2,15}", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(regexp = "[\\w\\s\\d]{2,15}")
     @Column(unique = true, length = 15)
     String name;
 

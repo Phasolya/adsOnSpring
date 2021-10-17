@@ -1,10 +1,11 @@
 package com.service.impl;
 
 import com.dao.AdvertisementDao;
+import com.domain.Advertisement;
+import com.domain.User;
 import com.dto.CategoryDto;
 import com.dto.CategoryHeaderDto;
 import com.dto.CategoryHeaderPriceDto;
-import com.entity.Advertisement;
 import com.service.AdvertisementService;
 import com.service.MailAddressService;
 import lombok.AccessLevel;
@@ -16,6 +17,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 
+/**
+ * {@link AdvertisementServiceImpl} class binds realization part with user
+ * and binds {@link AdvertisementDao} layer.
+ *
+ * @author Maxim Vovnianko.
+ * @version 1.1.
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Service
 @RequiredArgsConstructor
@@ -27,29 +35,47 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Scheduled(cron = "0/5 * * * * *")
     public void deleteAllNotActive() {
+
+        ADS_DAO.deleteAllNotActive();
+
         System.out.println(LocalTime.now());
     }
 
     @Override
+    public void deleteAllByUser(User user) {
+        ADS_DAO.deleteAllByUser(user);
+    }
+
+    @Override
     public void saveAndSentNotifications(Advertisement advertisement) {
-        ADS_DAO.save(advertisement);
+        save(advertisement);
         E_SERVICE.sendEmails(advertisement);
     }
 
     @Override
-    public Advertisement findById(int id) {
-        return ADS_DAO.findById(id);
+    public void save(Advertisement entity) {
+        ADS_DAO.save(entity);
+    }
+
+    @Override
+    public Advertisement find(int id) {
+        return ADS_DAO.find(id);
+    }
+
+    @Override
+    public void update(Advertisement entity) {
+        ADS_DAO.update(entity);
     }
 
     @Override
     public void updateAndSentNotifications(Advertisement advertisement) {
-        ADS_DAO.update(advertisement);
+        update(advertisement);
         E_SERVICE.sendEmails(advertisement);
     }
 
     @Override
-    public void deleteById(int id) {
-        ADS_DAO.deleteById(id);
+    public void delete(int id) {
+        ADS_DAO.delete(id);
     }
 
     @Override
